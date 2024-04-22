@@ -65,7 +65,45 @@ public class ClaimsHandler
 
     public Plot GetClaimWithLongestSide()
     {
-        throw new NotImplementedException("Please implement the ClaimsHandler.GetClaimWithLongestSide() method");
+        if (plots == null) return new Plot();
+        else
+        {
+            Plot currentLongest = plots[0];
+            for (int i = 1; i < plots.Length; i++)
+            {
+                double[] currentLongestSideLengths = {
+                    Math.Sqrt((currentLongest.coord1.X - currentLongest.coord2.X)^2 +  (currentLongest.coord1.Y - currentLongest.coord2.Y)),
+                    Math.Sqrt((currentLongest.coord2.X - currentLongest.coord3.X)^2 +  (currentLongest.coord2.Y - currentLongest.coord3.Y)),
+                    Math.Sqrt((currentLongest.coord3.X - currentLongest.coord4.X)^2 +  (currentLongest.coord3.Y - currentLongest.coord4.Y)),
+                    Math.Sqrt((currentLongest.coord4.X - currentLongest.coord1.X)^2 +  (currentLongest.coord4.Y - currentLongest.coord1.Y))
+                };
+                int currentLongestSideIndex = 0;
+                for (int j = 1; j < currentLongestSideLengths.Length; j++)
+                {
+                    if (currentLongestSideLengths[currentLongestSideIndex] < currentLongestSideLengths[j])
+                        currentLongestSideIndex = j;
+                }
+
+                double[] plotSideLengths = {
+                    Math.Sqrt((plots[i].coord1.X - plots[i].coord2.X)^2 +  (plots[i].coord1.Y - plots[i].coord2.Y)),
+                    Math.Sqrt((plots[i].coord2.X - plots[i].coord3.X)^2 +  (plots[i].coord2.Y - plots[i].coord3.Y)),
+                    Math.Sqrt((plots[i].coord3.X - plots[i].coord4.X)^2 +  (plots[i].coord3.Y - plots[i].coord4.Y)),
+                    Math.Sqrt((plots[i].coord4.X - plots[i].coord1.X)^2 +  (plots[i].coord4.Y - plots[i].coord1.Y))
+                };
+                int plotLongestSideIndex = 0;
+                for (int j = 1; j < plotSideLengths.Length; j++)
+                {
+                    if (plotSideLengths[plotLongestSideIndex] < plotSideLengths[j])
+                        plotLongestSideIndex = j;
+                }
+
+                if (currentLongestSideLengths[currentLongestSideIndex] < plotSideLengths[plotLongestSideIndex])
+                {
+                    currentLongest = plots[i];
+                }
+            }
+            return currentLongest;
+        }
     }
     Plot[] plots;
 }
