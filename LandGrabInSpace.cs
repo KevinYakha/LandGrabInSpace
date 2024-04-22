@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 public struct Coord
 {
@@ -32,12 +33,29 @@ public class ClaimsHandler
 {
     public void StakeClaim(Plot plot)
     {
-        throw new NotImplementedException("Please implement the ClaimsHandler.StakeClaim() method");
+        if (!IsClaimStaked(plot))
+        {
+            if (plots == null)
+            {
+                plots = [plot];
+                return;
+            }
+            Array.Resize(ref plots, plots.Length + 1);
+            plots[^1] = plot;
+        }
     }
 
     public bool IsClaimStaked(Plot plot)
     {
-        throw new NotImplementedException("Please implement the ClaimsHandler.IsClaimStaked() method");
+        if (plots == null || plots.Length == 0) return false;
+        else
+        {
+            foreach (Plot claimedPlot in plots)
+            {
+                if(claimedPlot.Equals(plot)) return true;
+            }
+            return false;
+        }
     }
 
     public bool IsLastClaim(Plot plot)
@@ -49,4 +67,5 @@ public class ClaimsHandler
     {
         throw new NotImplementedException("Please implement the ClaimsHandler.GetClaimWithLongestSide() method");
     }
+    Plot[] plots;
 }
