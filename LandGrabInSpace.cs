@@ -14,7 +14,17 @@ public struct Coord
 
 public struct Plot
 {
-    // TODO: Complete implementation of the Plot struct
+    public Plot(Coord coord1, Coord coord2, Coord coord3, Coord coord4)
+    {
+        this.coord1 = coord1;
+        this.coord2 = coord2;
+        this.coord3 = coord3;
+        this.coord4 = coord4;
+    }
+    public Coord coord1 { get; }
+    public Coord coord2 { get; }
+    public Coord coord3 { get; }
+    public Coord coord4 { get; }
 }
 
 
