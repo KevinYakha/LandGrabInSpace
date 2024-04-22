@@ -60,7 +60,7 @@ public class ClaimsHandler
 
     public bool IsLastClaim(Plot plot)
     {
-        throw new NotImplementedException("Please implement the ClaimsHandler.IsLastClaim() method");
+        return plots[^1].Equals(plot);
     }
 
     public Plot GetClaimWithLongestSide()
